@@ -1,3 +1,14 @@
+// cypress/support/commands.js
+
+Cypress.Commands.add('getIframeBody', (iframeSelector) => {
+    return cy.get(iframeSelector)
+      .its('0.contentDocument.body') // Access the iframe's body
+      .should('not.be.empty') // Ensure the iframe body is loaded
+      .then(cy.wrap); // Wrap the iframe body in Cypress for further commands
+  });
+  
+
+
 import {
     formatDate,
     hasTatkalAlreadyOpened,

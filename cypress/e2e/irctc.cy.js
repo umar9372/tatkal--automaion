@@ -254,10 +254,25 @@ describe('IRCTC TATKAL BOOKING', () => {
           cy.solveCaptcha().then(() => {
             cy.task("log", `Solved Second Stage Captchas solveCaptcha()`)
 
-            // BHIM UPI At Gateway Confirmation
-            cy.get(':nth-child(3) > .col-pad').click()
-            cy.get('.col-sm-9 > app-bank > #bank-type').click()
-            cy.get('.col-sm-9 > app-bank > #bank-type > :nth-child(2) > table > tr > :nth-child(1) > .col-lg-12 > .border-all > .col-xs-12 > .col-pad').click()
+            // // BHIM UPI At Gateway Confirmation
+            // cy.get(':nth-child(3) > .col-pad').click()
+            // cy.get('.col-sm-9 > app-bank > #bank-type').click()
+            // cy.get('.col-sm-9 > app-bank > #bank-type > :nth-child(2) > table > tr > :nth-child(1) > .col-lg-12 > .border-all > .col-xs-12 > .col-pad').click()
+
+
+            // BHIM UPI at Gateway Confirmation
+
+// Step 1: Click on the BHIM/ UPI/ USSD main option
+cy.contains('span.col-pad', 'BHIM/ UPI/ USSD').click();
+
+// Step 2: Open the dropdown for available payment methods
+cy.get('#bank-type').click();
+
+// Step 3: Select the 'Pay using BHIM (Powered by PAYTM)' option
+cy.contains('span.col-pad', 'Pay using BHIM (Powered by PAYTM )').click();
+
+            
+
 
             // Clicking Pay And book
             cy.get('.btn').click()
@@ -275,15 +290,55 @@ describe('IRCTC TATKAL BOOKING', () => {
               // console.log(interception.response.body)
 
               // MAKE SURE UPI ID EXIST THEN PROCEED PLEASE FILL UPI_ID VALUE IN cypress/fixtures/passenger_data.json as something like this "123713278162@paytm"
-              if (UPI_ID && isValidUpiId) {
-                cy.get('#ptm-upi').click()
-                cy.get('.brdr-box > :nth-child(2) > ._1WLd > :nth-child(1) > .xs-hover-box > ._Mzth > .form-ctrl').type(UPI_ID)
-                cy.get(':nth-child(5) > section > .btn').click()
-                // Waiting For 2 Mins for the user to pay In Case --no-exit option is emitted
-                cy.wait(120000)
+              
+              // if (UPI_ID && isValidUpiId) {
+              //   cy.get('#ptm-upi').click()
+              //   cy.get('.brdr-box > :nth-child(2) > ._1WLd > :nth-child(1) > .xs-hover-box > ._Mzth > .form-ctrl').type(UPI_ID)
+              //   cy.get(':nth-child(5) > section > .btn').click()
+              //   // Waiting For 2 Mins for the user to pay In Case --no-exit option is emitted
+              //   cy.wait(120000)
 
-              }
+              // }
 
+
+              // Step 1: Click on the "Other Payment Options" (UPI radio button)
+cy.get('section#ptm-upi input[type="radio"][name="paymode"]').check({ force: true });
+
+// Step 2: Select "Pay by Entering UPI ID" radio button
+cy.get('input[type="radio"][name="upiMode"][value="UPI"]').check({ force: true });
+
+// Step 3: Enter the UPI ID (shaikhkumar7276@okhdfcbank)
+cy.get('input[type="text"].form-ctrl').first().type('shaikhkumar7276@okhdfcbank'); //
+
+// Step 4: Click on the "Proceed" button
+cy.get('button.btn.btn-primary').contains('Proceed').click();
+
+
+
+
+
+              // if (UPI_ID && isValidUpiId) {
+              //   // Step 1: Expand the "Other Payment Options" section
+              //   cy.get('#ptm-upi').should('be.visible').click();
+              
+              //   // Step 2: Select the UPI radio button
+              //   cy.get('.bank-d input[type="radio"]').should('be.visible').check();
+              
+              //   // Step 3: Locate the "Enter VPA" input field and type the UPI ID
+              //   cy.get('._Mzth .form-ctrl') // Select the input field
+              //     .should('be.visible')    // Ensure it is visible
+              //     .type(UPI_ID, { force: true }); // Enter the UPI ID
+              
+              //   // Step 4: Click the "Proceed" button
+              //   cy.get('section .btn')
+              //     .contains('Proceed')    // Locate the button with text "Proceed"
+              //     .should('be.enabled')   // Ensure the button is enabled
+              //     .click();
+              
+              //   // Step 5: Wait for 2 minutes to allow manual payment
+              //   cy.wait(120000); // Adjust the timeout as per your needs
+              // }
+              
 
             })
 
