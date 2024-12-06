@@ -308,7 +308,7 @@ cy.get('section#ptm-upi input[type="radio"][name="paymode"]').check({ force: tru
 cy.get('input[type="radio"][name="upiMode"][value="UPI"]').check({ force: true });
 
 // Step 3: Enter the UPI ID (shaikhkumar7276@okhdfcbank)
-cy.get('input[type="text"].form-ctrl').first().type('shaikhkumar7276@okhdfcbank'); //
+cy.get('input[type="text"].form-ctrl').first().type('you-upi-id'); //
 
 // Step 4: Click on the "Proceed" button
 cy.get('button.btn.btn-primary').contains('Proceed').click();
@@ -317,27 +317,6 @@ cy.get('button.btn.btn-primary').contains('Proceed').click();
 
 
 
-              // if (UPI_ID && isValidUpiId) {
-              //   // Step 1: Expand the "Other Payment Options" section
-              //   cy.get('#ptm-upi').should('be.visible').click();
-              
-              //   // Step 2: Select the UPI radio button
-              //   cy.get('.bank-d input[type="radio"]').should('be.visible').check();
-              
-              //   // Step 3: Locate the "Enter VPA" input field and type the UPI ID
-              //   cy.get('._Mzth .form-ctrl') // Select the input field
-              //     .should('be.visible')    // Ensure it is visible
-              //     .type(UPI_ID, { force: true }); // Enter the UPI ID
-              
-              //   // Step 4: Click the "Proceed" button
-              //   cy.get('section .btn')
-              //     .contains('Proceed')    // Locate the button with text "Proceed"
-              //     .should('be.enabled')   // Ensure the button is enabled
-              //     .click();
-              
-              //   // Step 5: Wait for 2 minutes to allow manual payment
-              //   cy.wait(120000); // Adjust the timeout as per your needs
-              // }
               
 
             })
